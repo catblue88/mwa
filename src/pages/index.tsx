@@ -1,20 +1,34 @@
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import Image from 'next/image';
+//import Image from 'next/image';
 import React from 'react';
-import styles from '../styles/Home.module.css';
+//import {useState} from 'react';
+import styles from '../styles/Home.module.css'
+import { useWallet } from '@solana/wallet-adapter-react'
 
-const WalletDisconnectButtonDynamic = dynamic(
-    async () => (await import('@solana/wallet-adapter-react-ui')).WalletDisconnectButton,
-    { ssr: false }
-);
-const WalletMultiButtonDynamic = dynamic(
-    async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
-    { ssr: false }
-);
+import {WalletDisconnectButton, WalletMultiButton} from '@solana/wallet-adapter-react-ui'
+
+
+// const WalletDisconnectButtonDynamic = dynamic(
+//     async () => (await import('@solana/wallet-adapter-react-ui')).WalletDisconnectButton,
+//     { ssr: false }
+// );
+// const WalletMultiButtonDynamic = dynamic(
+//     async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+//     { ssr: false }
+// )
+
+
 
 const Home: NextPage = () => {
+    //const { connection } = useConnection()
+    const { publicKey } = useWallet()
+
+    const pubKey:string|undefined = publicKey?.toBase58() //useState(publicKey?.toBase58())
+
+    //if (typeof(pubKey) === PublicKey) console.log(pubKey.toBase58())
+    console.log("Hello", pubKey)//Todo: it can be publicKey.toBase58()
     return (
         <div className={styles.container}>
             <Head>
@@ -25,41 +39,31 @@ const Home: NextPage = () => {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
+                    Welcome to <a href="https://solana-mobile.github.io/mobile-wallet-adapter/spec/spec.html"> testing Solana MultiWallet Button with MWA</a>
                 </h1>
 
                 <div className={styles.walletButtons}>
-                    <WalletMultiButtonDynamic />
-                    <WalletDisconnectButtonDynamic />
+                    {/* <WalletMultiButtonDynamic /> */}
+                    <WalletMultiButton />
+                    <WalletDisconnectButton />
+                    {/* <WalletDisconnectButtonDynamic /> */}
                 </div>
 
                 <p className={styles.description}>
-                    Get started by editing <code className={styles.code}>pages/index.tsx</code>
+                    <code className={styles.code}>{ `my code: ${pubKey}` }</code>                    
                 </p>
 
                 <div className={styles.grid}>
-                    <a href="https://nextjs.org/docs" className={styles.card}>
-                        <h2>Documentation &rarr;</h2>
-                        <p>Find in-depth information about Next.js features and API.</p>
+                    <a href="https://react.dev/learn" className={styles.card}>
+                        <h2> React Documentation &rarr;</h2>
+                        <p></p>
                     </a>
 
                     <a href="https://nextjs.org/learn" className={styles.card}>
-                        <h2>Learn &rarr;</h2>
-                        <p>Learn about Next.js in an interactive course with quizzes!</p>
+                        <h2> and more in Next.JS &rarr;</h2>
+                        <p></p>
                     </a>
-
-                    <a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-                        <h2>Examples &rarr;</h2>
-                        <p>Discover and deploy boilerplate example Next.js projects.</p>
-                    </a>
-
-                    <a
-                        href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                        className={styles.card}
-                    >
-                        <h2>Deploy &rarr;</h2>
-                        <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-                    </a>
+               
                 </div>
             </main>
 
@@ -69,14 +73,11 @@ const Home: NextPage = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Powered by{' '}
-                    <span className={styles.logo}>
-                        <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-                    </span>
+
                 </a>
             </footer>
         </div>
-    );
+    )
 };
 
 export default Home;

@@ -1,9 +1,9 @@
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+//import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { WalletProvider } from '@solana/wallet-adapter-react' // ConnectionProvider, 
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
 //import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
-import type { AppProps } from 'next/app';
+//import { clusterApiUrl } from '@solana/web3.js';
+import type { AppProps } from 'next/app'
 import type { FC } from 'react';
 import React, { useMemo } from 'react';
 
@@ -13,10 +13,10 @@ require('../styles/globals.css');
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
     // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
-    const network = WalletAdapterNetwork.Devnet;
+    //const network = WalletAdapterNetwork.Devnet;
 
     // You can also provide a custom RPC endpoint
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+    //const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
     const wallets = useMemo(
         () => [
@@ -36,18 +36,18 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
             //new SolflareWalletAdapter(),
         ],
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [network]
+        []//[network]
     );
 
     return (
-        <ConnectionProvider endpoint={endpoint}>
+        // <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
                     <Component {...pageProps} />
                 </WalletModalProvider>
             </WalletProvider>
-        </ConnectionProvider>
-    );
-};
+        // </ConnectionProvider>
+    )
+}
 
-export default App;
+export default App

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import dynamic from 'next/dynamic';
+//import dynamic from 'next/dynamic';
 import Head from 'next/head';
 //import Image from 'next/image';
 import React from 'react';
@@ -27,8 +27,9 @@ const Home: NextPage = () => {
 
     const pubKey:string|undefined = publicKey?.toBase58() //useState(publicKey?.toBase58())
 
-    //if (typeof(pubKey) === PublicKey) console.log(pubKey.toBase58())
     console.log("Hello", pubKey)//Todo: it can be publicKey.toBase58()
+    
+    
     return (
         <div className={styles.container}>
             <Head>
